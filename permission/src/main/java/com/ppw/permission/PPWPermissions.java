@@ -1,11 +1,11 @@
 package com.ppw.permission;
 
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 
 /**
