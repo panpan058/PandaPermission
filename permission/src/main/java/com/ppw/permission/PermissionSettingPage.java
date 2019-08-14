@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
  */
 final class PermissionSettingPage {
 
-    private static final String MARK = Build.MANUFACTURER.toLowerCase();
+    private static final String MARK = Build.MANUFACTURER;
 
     /**
      * 跳转到应用权限设置页面

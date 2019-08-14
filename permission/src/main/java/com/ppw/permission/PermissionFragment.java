@@ -3,6 +3,7 @@ package com.ppw.permission;
 import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.PermissionChecker;
 import androidx.fragment.app.Fragment;
@@ -37,7 +39,7 @@ public class PermissionFragment extends Fragment {
     private boolean isContinue;
     private ArrayList<String> mPermissions;
 
-    public static PermissionFragment newInstance (ArrayList permissions, boolean isContinue) {
+    public static PermissionFragment newInstance (ArrayList<String> permissions, boolean isContinue) {
         PermissionFragment fragment = new PermissionFragment();
         Bundle bundle = new Bundle();
         bundle.putStringArrayList(PERMISSIONS, permissions);
@@ -52,11 +54,12 @@ public class PermissionFragment extends Fragment {
         setRetainInstance(true);
     }
 
+    @RequiresApi (api = Build.VERSION_CODES.O)
     @Override
     public void onActivityCreated (@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mPermissions = getArguments().getStringArrayList(PERMISSIONS);
-        ArrayList permissions = mPermissions;
+        ArrayList<String> permissions = mPermissions;
         isContinue = getArguments().getBoolean(IS_CONTINUE);
         if ((permissions.contains(Manifest.permission.REQUEST_INSTALL_PACKAGES) && ! PermissionUtils.isHasInstallPermission(getActivity()))
                 || (permissions.contains(Manifest.permission.SYSTEM_ALERT_WINDOW) && ! PermissionUtils.isHasOverlaysPermission(getActivity()))) {
@@ -82,7 +85,7 @@ public class PermissionFragment extends Fragment {
             }
 
         } else {
-            String[] array = (String[]) permissions.toArray(new String[permissions.size()]);
+            String[] array = permissions.toArray(new String[permissions.size()]);
             this.requestPermissions(array, PERMISSIONS_REQUEST_CODE);
         }
     }

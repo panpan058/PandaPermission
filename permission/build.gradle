@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'com.novoda.bintray-release'
 android {
     compileSdkVersion 28
     buildToolsVersion "29.0.0"
@@ -21,11 +21,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    publish {
+        userOrg = 'pandaw'
+        groupId = 'com.pandaWang'
+        artifactId = 'pandaPermissionX'
+        publishVersion = '1.0'
+        desc = 'Request permission tool class'
+        website = 'https://github.com/panpan058/PandaPermission'
+    }
+    lintOptions {
+        abortOnError false // 即使有报错也不会停止打包
+        checkReleaseBuilds false // 打包Release版本的时候也不进行Lint检测
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
 }
